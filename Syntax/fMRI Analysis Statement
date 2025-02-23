@@ -1,0 +1,4 @@
+All analyses regarding fMRI data were performed using toolboxes in Matlab 2013b
+
+# Data preprocessing: Data Processing & Analysis for Brain Imaging (DPABI) toolbox (https://rfmri.org/DPABI)
+  Reference: Chao-Gan Y, Yu-Feng Z. DPARSF: A MATLAB Toolbox for "Pipeline" Data Analysis of Resting-State fMRI. Front Syst Neurosci. 2010;4:13.
