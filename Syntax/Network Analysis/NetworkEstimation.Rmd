@@ -1,6 +1,5 @@
 ---
 title: "Network Estimation Syntax"
-output: html_notebook
 ---
 ```{r}
 setwd("E:/NE")#set working dictionary

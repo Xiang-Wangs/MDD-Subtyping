@@ -1,6 +1,5 @@
 ---
 title: "Network ComparisonSyntax"
-output: html_notebook
 ---
 ```{r}
 setwd("E:/NCT")#set working dictionary
