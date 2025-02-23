@@ -1,0 +1,18 @@
+TITLE: LPA for depression subtypes
+DATA: FILE IS DiscoveryDataset_MDD.dat;
+VARIABLE:NAMES ARE ID IllnessDuration Severity VAR1-VAR10;
+            Missing are all (-999);
+            USEVARIABLES ARE VAR1-VAR10;
+            CLASSES = c(5); !Strating from 2 to 6 class solutions
+            AUXILIARY = IllnessDuration(R3STEP); !Controlling for Illness Duration
+            AUXILIARY = Severity(R3STEP);!Controlling for Depression Severity
+                 
+ANALYSIS: TYPE = MIXTURE;
+
+
+OUTPUT:TECH1 TECH4;
+SAVEDATA: file=CLASS_5.txt;!Save classification outcome
+          save=cprob; !Save posterior probability
+Plot: 
+            type is plot3;
+            series = VAR1-VAR10(*);

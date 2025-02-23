@@ -1,0 +1,80 @@
+---
+title: "Network Estimation Syntax"
+output: html_notebook
+---
+```{r}
+setwd("E:/NE")#set working dictionary
+getwd()#view working dictionary
+```
+
+```{r}
+library(readxl)
+library(qgraph)
+library(bootnet)
+library(NetworkComparisonTest)
+```
+
+# Import data
+```{r}
+Data<- read_excel("DiscoveryDataset_MDD.xlsx")#read data259
+head(Data)#view data
+```
+
+# Network estimation
+```{r}
+Labels<-colnames(Data)
+Names<-c("Depressed Mood","Loss of Interest","Worthlessness/Guilt","Suicidal Ideation","Weight/Appetite Loss",
+         "Sleep Reduction","Psychomotor Symptom","Fatigue/Loss of Energy","Indecisiveness","Feeling Anxious")
+Network_Glasso <- estimateNetwork(Data,tuning=0.2,default = "EBICglasso",corMethod = "cor_auto")
+#default =“glasso" Set to the adaptive LASSO algorithm matrix "Lasso", etc.
+#set `corArgs = list(detectOrdinal=FALSE)` if you want
+plot(Network_Glasso,layout ='spring',vsize=6,
+     borders=TRUE,
+     legend.cex=0.45,label.cex=1,height=5,width=5,
+     Labels=Labels,nodeNames=Names,
+     mar=c(4,1,2,2))#construct network graph
+```
+
+```{r}
+Graphsave_glasso<- plot(Network_Glasso,
+                           layout ='spring',vsize=6,borders=TRUE,
+                           legend.cex=0.45,label.cex=1,height=5,width=5,
+                           Labels=Labels,nodeNames=Names,mar=c(4,1,2,2),#set margins: t，r，b，L
+                           height=5,width=5,
+                           filetype="jpg",filename="Graph_glasso")
+```
+# Centrality Index and visualization
+```{r}
+centrality_auto(Network_Glasso)#calculate central index
+centralityPlot(Network_Glasso,include=c("Strength","ExpectedInfluence","Closeness","Betweenness"),scale ="z-scores")
+
+```
+
+```{r}
+pdf("Fig_CentralityPlot.pdf",width=10,height=10)
+centralityPlot(Network_Glasso,include=c("Strength","ExpectedInfluence","Closeness", "Betweenness"),
+               scale = "z-scores")#Select 3 central indicators for visualization
+dev.off()
+```
+# Accuracy of edge weights
+```{r}
+Accuracy_network<- bootnet(Network_Glasso,statistics=c("strength","closeness","betweenness","edge"),nBoots=1000,nCores=5)
+plot(Accuracy_network,labels = FALSE,order = "sample")
+```
+```{r}
+pdf("Fig_AccuracyPlot.pdf",width=10,height=10)
+plot(Accuracy_network,labels = FALSE,order = "sample")
+dev.off()
+```
+# Stability of nodes on centrality indexes
+```{r}
+Stability_network <- bootnet(Network_Glasso, statistics=c("strength","ExpectedInfluence"), nBoots =1000,nCores =5,type = "case")
+plot(Stability_network,statistics=c("strength","ExpectedInfluence")) #The stability of nodes in the central index 
+corStability(Stability_network)#Compute CS-coefficients
+```
+```{r}
+pdf("Fig_Stability.pdf",width=10,height=7)
+plot(Stability_network,statistics=c("strength","ExpectedInfluence")) #The stability of nodes in the central index 
+corStability(Stability_network)
+dev.off()
+```

@@ -1,0 +1,67 @@
+---
+title: "Network ComparisonSyntax"
+output: html_notebook
+---
+```{r}
+setwd("E:/NCT")#set working dictionary
+getwd()#view working dictionary
+```
+```{r}
+library(readxl)
+library(qgraph)
+library(bootnet)
+library(NetworkComparisonTest)
+```
+
+# Import data
+```{r}
+data1<- read_excel("Group1.xlsx")#read data
+data2<- read_excel("Group2.xlsx")#read data
+head(data1)
+head(data2)
+```
+# Networks estimation
+```{r}
+Labels<-colnames(data1)
+Names<-c("Depressed Mood","Loss of Interest","WorthlessGuilt","Suicide","WeightAppetite",
+         "Sleep Problems","Psychomotor","FatigueEnergy","Difficulities in decision-making","Anxiety")
+Network1<- estimateNetwork(data1,tuning=0.2,default = "EBICglasso",corMethod = "cor_auto")#network estimation for group1
+Network2<- estimateNetwork(data2,tuning=0.2,default = "EBICglasso",corMethod = "cor_auto")#network estimation for group2
+
+L <- averageLayout(Network1,Network2)#Set the network to be unified format for comparison
+
+Network1Graph <- plot(Network1,layout = L,title="Group 1",vsize=6,
+     borders=TRUE,
+     legend.cex=0.2,label.cex=1,height=5,width=5,
+     Labels=Labels,nodeNames=Names,
+     mar=c(4,1,2,2))#output network graph for Group 1
+Network2Graph <- plot(Network2,layout = L,title="Group 2", vsize=6,
+     borders=TRUE,
+     legend.cex=0.2,label.cex=1,height=5,width=5,
+     Labels=Labels,nodeNames=Names,
+     mar=c(4,1,2,2))#output network graph for Group 2
+```
+# Network Comparison Tests
+```{r}
+compare_12 <- NCT(data1,data2, it=1000,binary.data=FALSE,paired=FALSE,test.edges=TRUE, edges='all',
+                  progressbar=TRUE,test.centrality=TRUE,centrality="strength",set.seed(10))#paired:TRUE of FALSE to indicate whether the samples are dependent or not
+```
+## NCT Topology: network structure invariance test 
+```{r}
+compare_12$nwinv.pval#whether significant different in edge weights? P value
+```
+
+## Invariant global strength
+```{r}
+compare_12$glstrinv.pval#whether significant different in global strength? P value
+```
+## Global strength value estimation
+```{r}
+compare_12$glstrinv.sep#view global strength values of two networks
+```
+
+## Quantification of differences: count significantly different edges
+```{r}
+compare_12$einv.pvals#view whether significant differences on edge weights permutation test
+sum(compare_12$einv.pvals$`p-value`<0.05)#view the count of P<0.05
+```
