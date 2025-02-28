@@ -32,7 +32,7 @@ Note: A DOI will be added to this clause upon publication.
 
 ### 1.2 Additional Use
 
-Any use beyond replication (including commercial purposes, public dissemination, or new research) requires a signed authorization form (template in Appendix B).
+Any use beyond replication (including commercial purposes, public dissemination, or new research) requires a signed authorization form (template in Appendix A).
 
 ## 2. Prohibited Use
 ### 2.1 Research Restrictions
@@ -91,7 +91,7 @@ All distributed copies must retain this license and original package licenses.
 
 SPSS Standards:
 
-* Variable names: lowercase_with_underscores (e.g., task_rt_mean).
+* Variable names: lowercase_with_underscores (e.g., P_FrameCensored).
 
 * Missing values: Coded as -999 with documentation in metadata.sps.
 
@@ -121,11 +121,11 @@ Matrix Specifications:
 
 * Normalization: Fisher-Z transformed correlation coefficients.
 
-* Symmetry: Enforced to be symmetric with diagonal = 0.
+* Symmetry: Enforced to be symmetric with diagonal = 'Inf'.
 
-* Metadata: Each .mat file includes a README field describing:
+* Metadata: Each .mat file includes a 'name' field, which is a string that represents the subject's unique identifier.
 
-* Atlas used (Schaefer multiresolution atlas and  Xiao’s structural connectomic atlas)
+* Atlas used (Schaefer multiresolution atlas and  Xiao’s structural connectomic atlas).
 
 * Preprocessing pipeline: [DPARSF V5.2](https://rfmri.org/DPABI)
 
