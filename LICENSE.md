@@ -166,7 +166,7 @@ Disputes shall be resolved exclusively in Beijing courts.
 This license remains effective until explicitly revoked in writing by [Xiang Wang].
 
 Appendix A: Authorization Form Template
-Available upon request from the [first author](xiangwangpsy@163.com) or the [corresponding author](xiongzhaozhu@csu.edu.cn).
+Available upon request from the [first author](mailto:xiangwangpsy@163.com) or the [corresponding author](mailto:xiongzhaozhu@csu.edu.cn).
 
 ## ***Final Notes***
 
