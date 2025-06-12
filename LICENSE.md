@@ -26,9 +26,8 @@ The following materials (collectively "Materials") are governed by this license:
 ### 1.1 Replication Scope
 
 You may copy, distribute, display, and perform the Materials solely to replicate results from the article:
-"Unveiling Diverse Clinical Symptom Patterns and Neural Activity Profiles in Major Depressive Disorder Subtypes" ("Designated Paper").
+[Unveiling Diverse Clinical Symptom Patterns and Neural Activity Profiles in Major Depressive Disorder Subtypes](https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(25)00200-2/fulltext).
 
-Note: A DOI will be added to this clause upon publication.
 
 ### 1.2 Additional Use
 
